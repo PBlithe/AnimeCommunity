@@ -1,0 +1,39 @@
+.mycss-text{
+    font-size: 16px;
+}
+.big-mycss-text{
+    font-size: 30px;
+}
+.text-color{
+    color: #F45A8D;
+}
+.black-color{
+    color: black;
+}
+.line-limit-length{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;/*文本不换行，这样超出一行的部分被截取，显示...*/
+}
+.context-limit-length{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.myui-this{
+    color: deeppink;
+}
+.location{
+    cursor: pointer;
+}
+.season{
+    cursor: pointer;
+}
+.time{
+    cursor: pointer;
+}
+.type{
+    cursor: pointer;
+}
