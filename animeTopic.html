@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="mycss/text.css"/>
         <link rel="stylesheet" href="mycss/label.css"/>
         <link rel="stylesheet" href="mycss/ul.css"/>
+        <link rel="stylesheet" href="mycss/post.css"/>
 
         <script type="text/javascript" src="layui/layui.js"></script>
 
@@ -50,6 +51,23 @@
             </div>
         </div>
         <div class="layui-container">
+            <div class="post-hide" id="post">
+                <div style="margin: 5px 10px 5px 10px;"><span class="mycss-text">发帖</span>
+                    <div style="float: right;"><i class="layui-icon layui-icon-close" style="font-size: 30px; color: #c9c9c9;cursor: pointer;" id="closePost"></i></div>
+                    <div style="clear:right;"></div>
+                </div>
+                <div style="margin: 5px 10px 5px 10px;"><input type="text" name="title" required  lay-verify="required" placeholder="请输入标题..." autocomplete="off" class="layui-input"></div>
+                <div style="margin: 5px 10px 5px 10px;">
+                        <textarea name="desc" placeholder="请输入内容..." class="layui-textarea" style="height: 360px;"></textarea>
+                </div>
+                <div style="margin: 5px 10px 5px 10px;">
+                    <i class="layui-icon layui-icon-picture" style="font-size: 30px;color: pink;cursor: pointer;"></i>
+                    <div style="float: right;">
+                        <button type="button" class="layui-btn">发送</button>
+                    </div>
+                    <div style="clear: right;"></div>
+                </div>
+            </div>
             <div class="anime-topic-top">
                 <div class="anime-big-photo-box">
                     <img style="width: 100%;height: 300px;object-fit: cover;" src="image/anime_big_photo/anime_13_big_photo.jpg"/>
@@ -58,7 +76,7 @@
                     <div style="float: left;">
                         <div style="margin-top:5px;">
                                 <span class="mycss-text">&nbsp;&nbsp;紫罗兰的永恒花园&nbsp;&nbsp;</span>
-                                <button type="button" class="layui-btn layui-btn-normal">发帖</button>
+                                <button type="button" class="layui-btn layui-btn-normal"  id="sendPost">发帖</button>
                         </div>
                     </div>
                 </div>
@@ -140,5 +158,6 @@
                 });
             </script>
             <script type="text/javascript" src="myjs/select.js"></script>
+            <script type="text/javascript" src="myjs/post.js"></script>
     </body>
 </html>
