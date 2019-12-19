@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+
+    <link rel="stylesheet" href="/layui/css/mylayui.css">
+    <link rel="stylesheet" href="/mycss/box.css"/>
+    <link rel="stylesheet" href="/mycss/text.css"/>
+    <link rel="stylesheet" href="/mycss/label.css"/>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+
+    <style>
+        body{
+            background: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+<div style="background: url(image/picture1.jpg);background-position: center;background-repeat: no-repeat;background-size:100% 100%">
+    <div class="layui-header header header-doc layui-nav" autumn style="background: rgba(255,255,255,0.8);">
+        <ul class="" lay-filter="" style="float: left;">
+            <li class="layui-nav-item layui-this"><a href=""><span class="black-color">首页</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">我的动态</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">发现</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">动漫广场</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">动漫视频</span></a></li>
+        </ul>
+        <ul class="" lay-filter="" style="float: right;">
+            <li class="layui-nav-item"><a href=""><span class="black-color">提醒</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">私信</span></a></li>
+            <li class="layui-nav-item"><a href=""><span class="black-color">XXX的账号</span></a></li>
+        </ul>
+    </div>
+    <div class="picture-container" >
+        <div style="float:right;width: 400px;height: 200px;">
+            <div style="width: 400px;height: 130px;"></div>
+            <div style="width: 400px;height: 20px;">
+                <button type="button" class="layui-btn">标签搜索</button>
+                <div class="layui-inline" style="border:solid 1px gray;background-color: white;">
+                    <div class="layui-input-inline">
+                        <input type="text" name="title" required lay-verify="required" placeholder="请输入标签..." autocomplete="off" class="layui-input" style="border: 0;">
+                    </div>
+                    <button class="layui-icon layui-btn" type="button" style="font-size: 25px;color: #7b7b7b;background-color: white;">&#xe615;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="layui-col-md8">
+        <!--<div style="width: 95%;margin-top: 5px;">
+            <div class="layui-input-inline" style="width:85%;">
+                <input type="text" name="title" required  lay-verify="required" placeholder="分享此刻的想法吧..." autocomplete="off" class="layui-input">
+            </div>
+            <button class="layui-btn">发帖</button>
+        </div>-->
+        <div class="post-box">
+            <div class="normal-container"><label class="mycss-text">工作细胞</label></div>
+            <div class="line-limit-length normal-container">
+                <a title="“浮生一切都被框在画里，它就在那里”，莫娣画下她感受到的一切，那些是美的，拿起画笔，她的心里就没有苦难，所以她的画充满灵性，每幅画都象是童话世界，为着生计到埃弗雷特那里做女佣，两个人就像是落单的袜子，凑合在一起，慢慢的相知相爱到相伴，莫娣去世后，埃弗雷特一个人缓缓走回他们的家中，孤单得让人心疼，整部影片就那么缓缓地讲述着，背景音乐配着绝妙的景致，一如莫娣画中的世界让人难以忘却！" href="#" class="text-color mycss-text">
+                    “浮生一切都被框在画里，它就在那里”，莫娣画下她感受到的一切，那些是美的，拿起画笔，她的心里就没有苦难，所以她的画充满灵性，每幅画都象是童话世界，为着生计到埃弗雷特那里做女佣，两个人就像是落单的袜子，凑合在一起，慢慢的相知相爱到相伴，莫娣去世后，埃弗雷特一个人缓缓走回他们的家中，孤单得让人心疼，整部影片就那么缓缓地讲述着，背景音乐配着绝妙的景致，一如莫娣画中的世界让人难以忘却！
+                </a>
+            </div>
+            <div class="context-limit-length normal-container">
+                <p>“浮生一切都被框在画里，它就在那里”，莫娣画下她感受到的一切，那些是美的，拿起画笔，她的心里就没有苦难，所以她的画充满灵性，每幅画都象是童话世界，为着生计到埃弗雷特那里做女佣，两个人就像是落单的袜子，凑合在一起，慢慢的相知相爱到相伴，莫娣去世后，埃弗雷特一个人缓缓走回他们的家中，孤单得让人心疼，整部影片就那么缓缓地讲述着，背景音乐配着绝妙的景致，一如莫娣画中的世界让人难以忘却！</p>
+            </div>
+            <div class="normal-container">
+                <div style="float: left;"><span>IAMFINE</span></div>
+                <div style="float: right;">
+                    <span class="text-color">赞同</span>
+                    <span class="text-color">回应</span>
+                    <span class="text-color">时间</span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+    <div class="layui-col-md4">
+        <div class="hotpost-or-excellentpost">
+            <span class="mycss-text">热门帖子/精品帖子</span>
+            <div class="normal-container">
+                <ul>
+                    <li class="text-color normal-container">到底猫更聪明，还是狗更聪明</li>
+                    <li class="text-color normal-container">S9小组赛第一日总结BP分析&FPX对局复盘</li>
+                    <li class="text-color normal-container">阿伟，你又在打电动啊！</li>
+                    <li class="text-color normal-container">小偷阿格的短短一生</li>
+                    <li class="text-color normal-container">网管们修电脑的方式只有重启么</li>
+                </ul>
+            </div>
+        </div>
+        <div class="hotlabel-box">
+            <span class="mycss-text">热门标签</span>
+            <div class="normal-container">
+                <button type="button" class="layui-btn label-orange normal-container">工作细胞</button>
+                <button type="button" class="layui-btn label-green normal-container">鬼灭之刃</button>
+                <button type="button" class="layui-btn label-cyan normal-container">小林家的龙女仆</button>
+                <button type="button" class="layui-btn label-blue normal-container">我的英雄学院</button>
+                <button type="button" class="layui-btn label-red normal-container">紫罗兰永恒花园</button>
+                <button type="button" class="layui-btn label-blue normal-container">青春猪头少年不会梦到兔女郎学姐</button>
+                <button type="button" class="layui-btn label-orange normal-container">刀剑神域</button>
+                <button type="button" class="layui-btn label-cyan normal-container">干物妹，小埋</button>
+                <button type="button" class="layui-btn label-green normal-container">徒然喜欢你</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+</script>
+</body>
+</html>
