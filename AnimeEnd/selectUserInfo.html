@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" id="side">
+            <li class="layui-nav-item">
+                <a href="javascript:;">首页</a>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">账号<span class="layui-badge-dot"></span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="createAdmin.html">创建管理员</a></dd>
+                    <dd><a href="modifyAccount.html">修改账号</a></dd>
+                    <dd><a href="javascript:;" class="layui-this">查询用户信息</a></dd>
+                    <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">推送</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">警告</a></dd>
+                    <dd><a href="javascript:;">公告</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">帖子/话题</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">帖子查询</a></dd>
+                    <dd><a href="javascript:;">帖子置顶</a></dd>
+                    <dd><a href="javascript:;">帖子查询</a></dd>
+                    <dd><a href="javascript:;">帖子删除</a></dd>
+                    <dd><a href="javascript:;">话题查询</a></dd>
+                    <dd><a href="javascript:;">话题创建</a></dd>
+                    <dd><a href="javascript:;">话题修改</a></dd>
+                    <dd><a href="javascript:;">话题删除</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">文章</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">举报<span class="layui-badge">10</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">日志</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建账号记录</a></dd>
+                    <dd><a href="javascript:;">警告推送记录</a></dd>
+                    <dd><a href="javascript:;">公告推送记录</a></dd>
+                    <dd><a href="javascript:;">话题修改记录</a></dd>
+                    <dd><a href="javascript:;">帖子修改记录</a></dd>
+                    <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>账号</span>
+                    <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <span style="color: #01AAED;;">查询用户信息</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户ID</label>
+                    <div class="layui-input-inline" width="200px">
+                        <input type="text" lay-verify="required" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-inline" width="200px">
+                        <input type="text" lay-verify="required" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline" width="200px">
+                        <input type="text" lay-verify="required|phone" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal" lay-submit>查询</button>
+                    <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+                </div>
+            </div>
+        </form>
+        <table id="userInfo">
+        </table>
+    </div>
+    
+</body>
+<script>
+    layui.use(['element','table'], function () {
+        var element = layui.element;
+        var table = layui.table;
+
+        table.render({
+            elem:"#userInfo",
+            url:"http://localhost:8080/AnimeEnd/user.json",
+            cols:[[
+                {field:'userId',title:'用户ID',sort:true,rowspan:2},
+                {field:'nickname',title:'昵称',rowspan:2},
+                {field:'telnumber',title:'手机号',rowspan:2},
+                {field:'following',title:'关注',sort:true,rowspan:2},
+                {field:'followers',title:'被关注',sort:true,rowspan:2},
+                {field:'post',title:'帖子',colspan:2},
+                {field:'topic',title:'话题',sort:true,colspan:2}
+                ],[
+                {field:'postNums',title:'数量',sort:true},
+                {field:'postDetail',title:'帖子详情'},
+                {field:'topicNums',title:'数量',sort:true},
+                {field:'topicDetail',title:'话题详情'},
+            ]],
+            page: true,
+            limit:10
+        })
+    });
+</script>
+
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+    });
+</script>
+
+</html>
