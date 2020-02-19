@@ -13,7 +13,9 @@
             "postNums":60,
             "postDetail":"详情",
             "topicNums":30,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":6,
+            "reported":10
         },
         {
             "userId":1000001,
@@ -25,7 +27,9 @@
             "postNums":5,
             "postDetail":"详情",
             "topicNums":9,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":15,
+            "reported":30
         },
         {
             "userId":1000002,
@@ -37,7 +41,9 @@
             "postNums":15,
             "postDetail":"详情",
             "topicNums":14,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":3,
+            "reported":10
         },
         {
             "userId":1000003,
@@ -49,7 +55,9 @@
             "postNums":31,
             "postDetail":"详情",
             "topicNums":18,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":1,
+            "reported":6
         },
         {
             "userId":1000004,
@@ -61,7 +69,9 @@
             "postNums":25,
             "postDetail":"详情",
             "topicNums":0,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":9,
+            "reported":6
         },
         {
             "userId":1000005,
@@ -73,7 +83,9 @@
             "postNums":12,
             "postDetail":"详情",
             "topicNums":34,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":17,
+            "reported":6
         },
         {
             "userId":1000006,
@@ -85,7 +97,9 @@
             "postNums":0,
             "postDetail":"详情",
             "topicNums":10,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":5,
+            "reported":10
         },
         {
             "userId":1000007,
@@ -97,7 +111,9 @@
             "postNums":6,
             "postDetail":"详情",
             "topicNums":7,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":45,
+            "reported":10
         },
         {
             "userId":1000008,
@@ -109,7 +125,9 @@
             "postNums":6,
             "postDetail":"详情",
             "topicNums":5,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":18,
+            "reported":4
         },
         {
             "userId":1000009,
@@ -121,7 +139,9 @@
             "postNums":2,
             "postDetail":"详情",
             "topicNums":1,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":9,
+            "reported":6
         },
         {
             "userId":1000010,
@@ -133,7 +153,9 @@
             "postNums":40,
             "postDetail":"详情",
             "topicNums":4,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":1,
+            "reported":30
         },
         {
             "userId":1000011,
@@ -145,7 +167,9 @@
             "postNums":30,
             "postDetail":"详情",
             "topicNums":30,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":19,
+            "reported":60
         },
         {
             "userId":1000012,
@@ -157,7 +181,9 @@
             "postNums":9,
             "postDetail":"详情",
             "topicNums":30,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":14,
+            "reported":10
         },
         {
             "userId":1000013,
@@ -169,7 +195,9 @@
             "postNums":18,
             "postDetail":"详情",
             "topicNums":30,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":20,
+            "reported":30
         },
         {
             "userId":1000014,
@@ -181,7 +209,9 @@
             "postNums":12,
             "postDetail":"详情",
             "topicNums":300,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":18,
+            "reported":30
         },
         {
             "userId":1000015,
@@ -193,7 +223,9 @@
             "postNums":17,
             "postDetail":"详情",
             "topicNums":22,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":1,
+            "reported":6
         },
         {
             "userId":1000016,
@@ -205,7 +237,9 @@
             "postNums":6,
             "postDetail":"详情",
             "topicNums":0,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":15,
+            "reported":20
         },
         {
             "userId":1000017,
@@ -217,7 +251,9 @@
             "postNums":50,
             "postDetail":"详情",
             "topicNums":30,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":17,
+            "reported":40
         },
         {
             "userId":1000018,
@@ -229,7 +265,9 @@
             "postNums":18,
             "postDetail":"详情",
             "topicNums":14,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":25,
+            "reported":40
         },
         {
             "userId":1000019,
@@ -241,7 +279,9 @@
             "postNums":45,
             "postDetail":"详情",
             "topicNums":20,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":6,
+            "reported":9
         },
         {
             "userId":1000020,
@@ -253,7 +293,9 @@
             "postNums":12,
             "postDetail":"详情",
             "topicNums":10,
-            "topicDetail":"详情"
+            "topicDetail":"详情",
+            "warned":1,
+            "reported":6
         }
     ]
 }
