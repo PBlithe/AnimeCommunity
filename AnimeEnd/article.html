@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" id="side">
+            <li class="layui-nav-item">
+                <a href="javascript:;">首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">账号<span class="layui-badge-dot"></span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建管理员</a></dd>
+                    <dd><a href="javascript:;">修改账号</a></dd>
+                    <dd><a href="javascript:;">删除账号</a></dd>
+                    <dd><a href="javascript:;">查询用户信息</a></dd>
+                    <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">推送</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">警告</a></dd>
+                    <dd><a href="javascript:;">公告</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">帖子/话题</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">帖子操作</a></dd>
+                    <dd><a href="javascript:;">话题操作</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;" class="layui-this">文章</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">举报<span class="layui-badge">10</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">日志</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建账号记录</a></dd>
+                    <dd><a href="javascript:;">警告推送记录</a></dd>
+                    <dd><a href="javascript:;">公告推送记录</a></dd>
+                    <dd><a href="javascript:;">话题修改记录</a></dd>
+                    <dd><a href="javascript:;">帖子修改记录</a></dd>
+                    <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>文章</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <form class="layui-form layui-form-pane">
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">动画标签</label>
+                    <div class="layui-input-inline">
+                        <select name="topic" lay-verify="required" lay-search>
+                            <option value="">直接选择或搜索选择</option>
+                            <option value="1">鬼灭之人</option>
+                            <option value="2">工作细胞</option>
+                            <option value="3">欢迎来到实力至上主义的教室</option>
+                            <option value="4">埃罗芒阿老师</option>
+                            <option value="5">小林家的龙女仆</option>
+                            <option value="6">关于我转生变成史莱姆这档事</option>
+                            <option value="7">紫罗兰永恒花园</option>
+                            <option value="8">辉夜姬大小姐想让我告白天才们的恋爱头脑站</option>
+                            <option value="9">某学科的超电磁炮</option>
+                            <option value="10">徒然喜欢你</option>
+                            <option value="11">干物妹小埋</option>
+                            <option value="12">多罗罗</option>
+                            <option value="13">齐木楠雄的灾难</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" lay-verify="required" class="layui-input" />
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div id="editor">
+                    <p>使用wangEditor富文本编辑器</p>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <button type="button" class="layui-btn layui-btn-normal">发送</button>
+                    <button type="button" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use(['element', 'table', 'form'], function () {
+        var element = layui.element;
+        var table = layui.table;
+        var form = layui.form;
+    });
+</script>
+
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width();
+        var sideWith = $('#side').width();
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith+10 + "px", "margin-right": sideWith + "px" });
+        $('#userIdText').hide();
+        $('#phone').addClass("layui-btn-disabled");
+        $('#userId').on("click", function () {
+            $("#userIdText").show();
+            $("#phoneText").hide();
+            $('#phone').removeClass("layui-btn-disabled");
+            $("#userId").addClass("layui-btn-disabled");
+        })
+        $('#phone').on("click", function () {
+            $("#phoneText").show();
+            $("#userIdText").hide();
+            $('#userId').removeClass("layui-btn-disabled")
+            $("#phone").addClass("layui-btn-disabled");
+        })
+    });
+</script>
+<script type="text/javascript" src="wangEditor-3.1.1/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.customConfig.zIndex = 1
+    editor.customConfig.uploadImgServer = '/upload'//上传图片到服务器
+    editor.create();
+</script>
+
+</html>

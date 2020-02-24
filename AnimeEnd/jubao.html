@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" id="side">
+            <li class="layui-nav-item">
+                <a href="javascript:;">首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">账号<span class="layui-badge-dot"></span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="createAdmin.html">创建管理员</a></dd>
+                    <dd><a href="modifyAccount.html">修改账号</a></dd>
+                    <dd><a href="javascript:;">查询用户信息</a></dd>
+                    <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">推送</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">警告</a></dd>
+                    <dd><a href="javascript:;">公告</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">帖子/话题</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">帖子操作</a></dd>
+                    <dd><a href="javascript:;">话题操作</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">文章</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;" class="layui-this">举报<span class="layui-badge">10</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">日志</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建账号记录</a></dd>
+                    <dd><a href="javascript:;">警告推送记录</a></dd>
+                    <dd><a href="javascript:;">公告推送记录</a></dd>
+                    <dd><a href="javascript:;">话题修改记录</a></dd>
+                    <dd><a href="javascript:;">帖子修改记录</a></dd>
+                    <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>举报</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <table id="jubaoList">
+        </table>
+    </div>
+    
+</body>
+<script>
+    layui.use(['element','table'], function () {
+        var element = layui.element;
+        var table = layui.table;
+
+        table.render({
+            elem:"#jubaoList",
+            url:"http://localhost:8080/AnimeEnd/jubao.json",
+            cols:[[
+                {field:'ju_id',title:'序号',align:'center',sort:true},
+                {field:'reason',title:'理由',align:'center'},
+                {field:'supplement',title:'补充说明',align:'center'},
+                {field:'jubao_person',title:'举报人',align:'center',sort:true},
+                {field:'jubaoed_person',title:'被举报人',align:'center',sort:true},
+                {field:'time',title:'时间',align:'center',sort:true},
+                {field:'por_id',title:'帖子/回复ID',align:'center'},
+                {field:'type',title:'类型',align:'center'},
+                {field:'status',title:'状态',align:'center',templet:'#status'},
+                {field:'content',title:'内容',align:'center'},
+                {field:'operation',title:'操作',templet:'#operation',align:'center'}
+            ]],
+            page: true,
+            limit:10
+        })
+    });
+</script>
+
+<script type="text/html" id="operation">
+    <a class="layui-btn layui-btn-normal layui-btn-xs">标记</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs">受理</a>
+</script>
+
+<script type="text/html" id="status">
+    {{# if(d.status == '已读') { }}
+        <span style="color:#1E9FFF">已读</span>
+    {{# } }}
+    {{# if(d.status == '已受理') { }}
+        <span style="color:#FFB800">已受理</span>
+    {{# } }}
+    {{# if(d.status == '未读') { }}
+        {{d.status}}
+    {{# } }}
+</script>
+
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+    });
+</script>
+
+</html>
