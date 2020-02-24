@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ul class="layui-nav layui-nav-tree layui-nav-side" id="side">
+            <li class="layui-nav-item">
+                <a href="javascript:;">首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">账号<span class="layui-badge-dot"></span></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建管理员</a></dd>
+                    <dd><a href="javascript:;">修改账号</a></dd>
+                    <dd><a href="javascript:;">删除账号</a></dd>
+                    <dd><a href="javascript:;">查询用户信息</a></dd>
+                    <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">推送</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">警告</a></dd>
+                    <dd><a href="javascript:;">公告</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">帖子/话题</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">帖子操作</a></dd>
+                    <dd><a href="javascript:;" class="layui-this">话题操作</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">文章</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">举报<span class="layui-badge">10</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">日志</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">创建账号记录</a></dd>
+                    <dd><a href="javascript:;">警告推送记录</a></dd>
+                    <dd><a href="javascript:;">公告推送记录</a></dd>
+                    <dd><a href="javascript:;">话题修改记录</a></dd>
+                    <dd><a href="javascript:;">帖子修改记录</a></dd>
+                    <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>话题</span>
+                    <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <span style="color: #01AAED;">操作</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <form class="layui-form" id="search">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">序号</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" lay-verify="required" placeholder="通过帖子序号搜索" />
+                    </div>
+                    <div class="layui-input-inline">
+                        <button class="layui-btn layui-btn-normal search-button" type="button">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">名称</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" lay-verify="required" placeholder="通过名称搜索" />
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn layui-btn-normal search-button" type="button">搜索</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建人</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" lay-verify="required" placeholder="通过创建人搜索" />
+                </div>
+                <div class="layui-input-inline">
+                    <button class="layui-btn layui-btn-normal search-button" type="button">搜索</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="visibility:hidden;"></label>
+                <div class="layui-input-inline">
+                    <button class="layui-btn layui-btn-warm layui-btn-fluid search-button" type="button">全部内容</button>
+                </div>
+            </div>
+        </form>
+
+        <table id="post" lay-filter="lay-post"></table>
+    </div>
+</body>
+<script>
+    layui.use(['element', 'table','layer','jquery'], function () {
+        var element = layui.element;
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+
+        //点击任意一个搜索按钮显示表格数据
+        $('.search-button').on('click', function () {
+            $('#search').hide();
+
+            table.render({
+            elem: '#post',
+            url: "http://localhost:8080/AnimeEnd/topic.json",
+            page: true,
+            toolbar: '#return',
+            cols: [
+                [{ field: 't_id', title: '序号', rowspan: 2, align: 'center'},
+                { field: 't_name', title: '名称', rowspan: 2, align: 'center'},
+                {field:'t_num',title:'帖子数量',rowspan:2,align:'center'},
+                {field:'t_creator',title:'创建人',rowspan:2,align:'center'},
+                { field: 'time', title: '时间', colspan: 2, align: 'center'},
+                {field:'t_style',title:'样式',rowspan:2,align:'center',templet:'#t_style'},
+                { title: '操作', rowspan: 2, align: 'center', toolbar: '#operation'}],
+                [{ field: 'create_time', title: '创建时间', align: 'center'},
+                { field: 'm_time', title: '修改时间', align: 'center'}]
+            ]
+            });
+        });
+        //表格左上角的返回按钮
+        table.on('toolbar(lay-post)', function (obj) {
+            if(obj.event == 'return'){
+                table.render({
+                    elem:'#post',
+                    cols:[]
+                });
+                $('#search').show();
+            }
+        });
+    });
+</script>
+<!-- 返回按钮 -->
+<script type="text/html" id="return">
+    <div class="layui-btn-container">
+      <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="return">返回</button>
+    </div>
+</script>
+<!-- 样式按钮 -->
+<script type="text/html" id="t_style">
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="zhiding">{{d.t_style}}</a>
+</script>
+<!-- 操作列 -->
+<script type="text/html" id="operation">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="xiugai">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width();
+        var sideWith = $('#side').width();
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+        $('.search-button').on('click', function () {
+            $('#search').hide();
+            $('#post').show();
+        });
+    });
+</script>
+
+</html>
