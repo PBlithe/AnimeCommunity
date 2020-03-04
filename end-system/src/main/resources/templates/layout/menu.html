@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+        <div th:fragment="side">
+            <ul class="layui-nav layui-nav-tree layui-nav-side" id="side">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">首页</a>
+                </li>
+                <li class="layui-nav-item" id="account">
+                    <a href="javascript:;">账号<span class="layui-badge-dot"></span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/createAdminPage}" id="createAdmin">创建管理员</a></dd>
+                        <dd><a href="modifyAccount.html">修改账号</a></dd>
+                        <dd><a href="selectUserInfo.html">查询用户信息</a></dd>
+                        <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">推送</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">警告</a></dd>
+                        <dd><a href="javascript:;">公告</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">帖子/标签</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">帖子操作</a></dd>
+                        <dd><a href="javascript:;">标签操作</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">文章</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">举报<span class="layui-badge">10</span></a>
+                </li>
+                <li class="layui-nav-item" id="logs">
+                    <a href="javascript:;">日志</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/createAccountLogsPage}" id="createAccountLogs">创建账号记录</a></dd>
+                        <dd><a href="javascript:;">警告推送记录</a></dd>
+                        <dd><a href="javascript:;">公告推送记录</a></dd>
+                        <dd><a href="javascript:;">话题修改记录</a></dd>
+                        <dd><a href="javascript:;">帖子修改记录</a></dd>
+                        <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+</body>
+</html>

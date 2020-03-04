@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js" th:src="@{/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body>
+    <div th:include="layout/menu::side"></div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>日志</span>
+                    <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <span style="color: #01AAED;">创建账号记录</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <table id="accountList">
+        </table>
+    </div>
+
+</body>
+<script>
+    layui.use(['element', 'table','util'], function () {
+        var element = layui.element;
+        var table = layui.table;
+        var util = layui.util;
+
+        table.render({
+            elem: "#accountList",
+            url: "/createAccountLogsPage/accountLogs",
+            cols: [
+
+                    [
+                        { field: 'no', title: '序号', align: 'center', sort: true },
+                        { field: 'id', title: '账号', align: 'center' },
+                        { field: 'time', title: '时间', align: 'center', sort: true,templet: "#time" },
+                        { field: 'opt', title: '操作', align: 'center',templet:'#opt'},
+                        { field: 'optor', title: '操作人', align: 'center' },
+                        { field: 'supple', title: '补充说明', align: 'center' }
+                    ]
+
+            ],
+            page: true,
+        })
+    });
+</script>
+
+<script type="text/html" id="opt">
+    {{#  if(d.opt == 'CREATE'){ }}
+    <span class="layui-btn layui-btn-warm layui-btn-sm">创建</span>
+    {{#  } }}
+    {{#  if(d.opt == 'MODIFY'){ }}
+    <span class="layui-btn layui-btn-normal layui-btn-sm">修改</span>
+    {{#  } }}
+    {{#  if(d.opt == 'DELETE'){ }}
+    <span class="layui-btn layui-btn-danger layui-btn-sm">删除</span>
+    {{#  } }}
+    {{#  if(d.opt == 'BLOCK '){ }}
+    <span class="layui-btn layui-btn-primary layui-btn-sm">封锁</span>
+    {{#  } }}
+</script>
+<script type="text/html" id="time">
+    {{layui.util.toDateString(d.time)}}
+</script>
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+        $("#logs").addClass("layui-nav-itemed");
+        $("#createAccountLogs").addClass("layui-this");
+    });
+</script>
+
+</html>

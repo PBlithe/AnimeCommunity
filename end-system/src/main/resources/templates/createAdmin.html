@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js" th:src="@{/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body>
+    <div th:include="layout/menu::side"></div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;"><span>账号</span><span>&nbsp;&nbsp;/&nbsp;&nbsp;</span><span
+                        style="color: #01AAED;">创建管理员</span></span></a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <form class="layui-form" lay-filter="formTest">
+            <div class="layui-form-item">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" type="text" placeholder="请输入账号..." name="id" id="id" lay-verify="required|account"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" type="password" placeholder="请设置密码..." name="password" id="password" lay-verify="required|pass"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">重复</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" type="password" placeholder="请再次输入密码..." name="repwd" id="repwd" lay-verify="required|pass"/>
+                </div>
+            </div>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">权限</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="auth" title="处理违规" value="1" checked>
+                    <input type="checkbox" name="auth" title="查看日志" value="2" checked>
+                    <input type="checkbox" name="auth" title="发送推送" value="3" >
+                    <input type="checkbox" name="auth" title="写动漫文章" value="4" >
+                    <input type="checkbox" name="auth" title="查询用户信息" value="5" >
+                </div>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="auth" title="帖子管理" value="6" >
+                    <input type="checkbox" name="auth" title="话题管理" value="7">
+                    <input type="checkbox" name="auth" title="修改账号" value="8" >
+                    <input type="checkbox" name="auth" title="删除账号" value="9" >
+                    <input type="checkbox" name="auth" title="创建管理员" value="0">
+
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit class="layui-btn layui-btn-normal" id="send" lay-filter="send" type="button">确认</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重制</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use(['element', 'form', 'upload'], function () {
+        var element = layui.element;
+        var form = layui.form;
+
+        form.render();
+    });
+</script>
+
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": sideWith + "px" });
+        $("#account").addClass("layui-nav-itemed");
+        $("#createAdmin").addClass("layui-this");
+    });
+    layui.use(['form','jquery','layer'],function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        $("#send").on('click',function(){
+
+            var id = $("#id").val();
+            var password = $("#password").val();
+            var auths = $('input[name="auth"]');
+            var auth = "";
+            for(i=0;i<auths.length;i++){
+                if($(auths[i]).prop("checked")){
+                    console.log($(auths[i]).val());
+                    var a = $(auths[i]).val() ;
+                    auth += a;
+                }
+            }
+            var str = {"id":id,"password":password,"auth":auth};
+
+            $.ajax({
+                type:'POST',
+                url:'[[${basePath}]]/createAdmin',
+                data:JSON.stringify(str),
+                contentType:"application/json;charset=UTF-8",
+                success: function(data,code,message) {
+                    console.log(data)
+                    if(data.code == 1000){
+                        form.val("formTest",{
+                            "id":"",
+                            "password":"",
+                            "repwd":""
+                        });
+                        layer.msg('创建成功', {icon: 1});
+                    }else if (data.code == -1){
+                        form.val("formTest",{
+                            "id":"",
+                            "password":"",
+                            "repwd":""
+                        });
+                        layer.msg(message.responseJSON.message, {icon: 2})
+                    }
+                },
+                error: function(data) {
+                    form.val("formTest",{
+                        "id":"",
+                        "password":"",
+                        "repwd":""
+                    });
+                    layer.msg("错误",{icon: 2});
+                },
+            });
+        });
+        form.on('submit(send)', function(data){
+            var id = $("#id").val();
+            var password = $("#password").val();
+            var repwd = $("#repwd").val();
+            if (password != repwd){
+                layer.msg('两次密码不一致', {icon: 5})
+                return false;
+            };
+            return false;
+        });
+        form.verify({
+            pass: [
+                /^[\S]{6,15}$/
+                ,'密码必须6到15位，且不能出现空格'
+            ],
+            account:[
+                /^[\w]{5,10}$/
+                ,'账号必须是长度5-10由字母、数字或者下划线组成的字符串'
+            ]
+        })
+    });
+</script>
+
+</html>
