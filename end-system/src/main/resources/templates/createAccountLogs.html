@@ -74,7 +74,7 @@
     {{#  } }}
 </script>
 <script type="text/html" id="mytime">
-    {{layui.util.toDateString(d.time)}}
+    {{d.time.toLocaleString().replace(/T/g,' ').substr(0,19)}}
 </script>
 <script>
     $(window).ready(function () {

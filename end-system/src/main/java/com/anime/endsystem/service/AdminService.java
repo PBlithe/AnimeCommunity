@@ -92,10 +92,9 @@ public class AdminService {
             } else {
             }
         }
-        if (authMapper.findAuthById(admin.getAuth()).isEmpty()) {//如果权限表中没有相关权限记录在增加
+        if (authMapper.findAuthById(admin.getAuth()).isEmpty()) {//如果权限表中没有相关权限记录
             for (AuthEnum a : auths) {
                 authMapper.insertAuthById(admin.getAuth(), a);
-                supple += "  " + a + "  "; // 增加管理员创建记录表中supple字段说明
             }
         }
         supple += "权限";
@@ -268,7 +267,9 @@ public class AdminService {
         logs.setOpt(OPT.MODIFY);
         logs.setOptor(id);
         //判断权限是仅仅增加了还是删除了
-        if(add.equals("增加了权限")){
+        if(add.equals("增加了权限")&&delete.equals("删除了权限")){
+            logs.setSupple("并未修改权限");
+        }else if(add.equals("增加了权限")){
             logs.setSupple(delete);
         }else if(delete.equals("删除了权限")){
             logs.setSupple(add);
