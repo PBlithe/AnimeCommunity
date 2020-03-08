@@ -74,4 +74,12 @@ public class AdminController {
         String id = (String) session.getAttribute("optor");
         return adminService.tryEdit(data,newAuth,id);
     }
+    @GetMapping("/trydisBlock")
+    public ResultBean trydisBlock(MAData data,HttpSession session){
+        //首先判断用户是否有权限修改账号状态
+        //如果有才能修改状态
+        //最后还要在记录表中添加记录
+        String id = (String) session.getAttribute("optor");
+        return adminService.trydisBlock(data,id);
+    }
 }

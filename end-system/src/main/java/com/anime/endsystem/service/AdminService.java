@@ -281,6 +281,25 @@ public class AdminService {
         return new ResultBean().success(data);
     }
 
+    public ResultBean trydisBlock(MAData data, String id){
+        //首先判断用户是否有权限修改账号状态
+        String a_id = adminMapper.findAuthById(id);
+        List<AuthEnum> enums = authMapper.findAuth(a_id);
+        if(enums.indexOf(AuthEnum.XiuGaiZhangHao) == -1){
+            return new ResultBean().error("没有权限修改账号的状态");
+        }
+        //如果有才能修改状态
+        adminMapper.updateState(AdminState.NORMAL,data.getId());
+        //最后还要在记录表中添加记录
+        AdminLogs adminLogs = new AdminLogs();
+        adminLogs.setId(data.getId());
+        adminLogs.setOpt(OPT.MODIFY);
+        adminLogs.setOptor(id);
+        adminLogs.setSupple("解除账号状态");
+        adminLogsMapper.addAdminLogs(adminLogs);
+        return new ResultBean().success();
+    }
+
     private String modifyAuth(char c){
         String s = "";
         if (c == '1') {
