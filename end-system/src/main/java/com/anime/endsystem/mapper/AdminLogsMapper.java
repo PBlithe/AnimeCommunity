@@ -10,7 +10,7 @@ import java.util.List;
 public interface AdminLogsMapper {
 
     //插入一条记录
-    @Insert("INSERT INTO t_admin_logs(id,opt,optor) VALUES(#{id},#{opt},#{optor})")
+    @Insert("INSERT INTO t_admin_logs(id,opt,optor,supple) VALUES(#{id},#{opt},#{optor},#{supple})")
     void addAdminLogs(AdminLogs adminLogs) throws DataAccessException;
 
     //查询记录表的记录

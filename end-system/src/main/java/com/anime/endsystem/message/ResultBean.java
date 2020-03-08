@@ -59,6 +59,13 @@ public class ResultBean implements Serializable {
         return  rb;
     }
 
+    public ResultBean error(String message){
+        ResultBean rb=resultBean;
+        rb.setMessage(message);
+        rb.setCode(-1);
+        return  rb;
+    }
+
 
     public Integer getCode() {
         return code;

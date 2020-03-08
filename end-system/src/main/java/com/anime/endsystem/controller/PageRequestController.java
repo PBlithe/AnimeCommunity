@@ -21,4 +21,8 @@ public class PageRequestController {
         httpSession.setAttribute("optor","admin");
         return "createAccountLogs";
     }
+    @GetMapping("/modifyAccountPage")
+    public String modifyAccountPage(HttpSession httpSession){
+        return "modifyAccount";
+    }
 }

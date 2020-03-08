@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js" th:src="@{/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body>
+    <div th:include="layout/menu::side"></div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;"><span>账号</span><span>&nbsp;&nbsp;/&nbsp;&nbsp;</span><span
+                        style="color: #01AAED;">修改账号</span></span></a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <table id="modifyAccountList" lay-filter="editor"></table>
+    </div>
+</body>
+
+<script type="text/javascript"  th:src="@{/authCheck.js}"></script>
+
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+    });
+    $("#account").addClass("layui-nav-itemed");
+    $("#modifyAccount").addClass("layui-this");
+</script>
+
+<script>
+
+    layui.use(['element', 'upload','table','jquery','layer'], function () {
+        var element = layui.element;
+        var form = layui.form;
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        form.render();
+        //渲染列表
+        table.render({
+            elem: '#modifyAccountList',
+            page: true,
+            url: '/account',
+            cols: [
+                [
+                    { field: 'no', title: '序号', sort: true },
+                    { field: 'id', title: '账号' },
+                    { field: 'auth', title: '权限'},
+                    { field:'state',title:'状态',templet:'#adminState',align: "center"},
+                    { field:'operation',title: '操作', toolbar: '#operBar', fixed: 'right',align:'center'},
+                ]
+            ]
+        });
+
+        table.on('tool(editor)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            if (layEvent === 'detail') { //查看
+                //do somehing
+            } else if (layEvent === 'del') { //删除
+                layer.confirm('确定要删除该账户吗？', {icon: 3, title:'提示'},function (index) {
+                    $.ajax({
+                        type:"post",
+                        url:"/tryDeleteAccount",
+                        data:data,
+                        success:function(data){
+                            if(data.code == 1000){
+                                layer.msg("删除成功",{icon: 1})
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                            }
+                            if (data.code == -1){
+                                layer.msg(data.message,{icon: 5,anim:6})
+                            }
+                        },
+                        error:function (data) {
+                            layer.msg("错误",{icon: 5,anim:6})
+                        }
+                    });
+                    layer.close(index);
+                });
+            } else if (layEvent === 'edit') { //编辑
+                layer.open({
+                    type: 1//页面层
+                    ,title: false //不显示标题栏
+                    ,area: '500px;'
+                    ,closeBtn:false
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确认', '返回']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content:
+                        '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">'
+                            +'<label>当前权限：</label>'+JSON.stringify(data.auth)+'<br><label>请修改你想选择的权限：</label><br><div>\n' +
+                        '                <input type="checkbox" name="auth"value="1" checked>处理违规\n' +
+                        '                <input type="checkbox" name="auth"value="2" checked>查看日志\n' +
+                        '                <input type="checkbox" name="auth"value="3">发送推送\n' +
+                        '                <input type="checkbox" name="auth"value="4">写动漫文章\n' +
+                        '                <input type="checkbox" name="auth"value="5">查询用户信息\n' +
+                        '            </div>\n' +
+                        '            <div>\n' +
+                        '                <input type="checkbox" name="auth"value="6">帖子管理\n' +
+                        '                <input type="checkbox" name="auth"value="7">话题管理\n' +
+                        '                <input type="checkbox" name="auth"value="8">修改账号\n' +
+                        '                <input type="checkbox" name="auth"value="9">删除账号\n' +
+                        '                <input type="checkbox" name="auth"value="0">创建管理员\n' +
+                        '\n' +
+                        '            </div>'+
+                        '</div>'
+                    ,yes:function(index){
+                        var auths = $('input[name="auth"]');
+                        var auth = "";
+                        for (i = 0; i < auths.length; i++) {
+                            if ($(auths[i]).prop("checked")) {
+                                var a = $(auths[i]).val();
+                                auth += a;
+                            }
+                        }
+                        $.ajax({
+                            type:"post",
+                            url:"/tryEdit",
+                            data:{"auth":data.auth,"id":data.id,"no":data.no,"state":data.state,"newAuth":auth},
+                            success:function(data){
+                                console.log(data);
+                                if(data.code == 1000){
+                                    layer.msg("修改成功",{icon: 1})
+                                    console.log(data.auth);
+                                    obj.update({
+                                        auth: data.data.auth
+                                    });
+                                }
+                                if (data.code == -1){
+                                    layer.msg(data.message,{icon: 5,anim:6})
+                                }
+                            },
+                            error:function (data) {
+                                layer.msg("错误",{icon: 5,anim:6})
+                            }
+                        });
+                        layer.close(index);
+                    }
+                    ,btn2:function (index) {
+                        layer.close(index);
+                    }
+                });
+            } else if (layEvent === 'block') {
+                $.ajax({
+                    type:"get",
+                    url:"/tryBlock",
+                    data:data,
+                    success:function(data){
+                        layer.msg("成功",{icon: 1})
+                        obj.update({state:'BLOCK'});
+                        if (data.code == -1){
+                            layer.msg(data.message,{icon: 5,anim:6})
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("错误",{icon: 5,anim:6})
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script type="text/html" id="operBar">
+    {{# if(d.state == 'BLOCK'){ }}
+        <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="">修改</a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disBlock">解除</a>
+        <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="">删除</a>
+    {{# } else{ }}
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">修改</a>
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="block">封锁</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
+</script>
+<script type="text/html" id="adminState">
+    {{# if(d.state == "NORMAL"){ }}
+        <a class="layui-btn layui-btn-normal layui-btn-sm">正常</a>
+    {{# } else{ }}
+        <a class="layui-btn layui-btn-warm layui-btn-sm">封锁</a>
+    {{# } }}
+</script>
+</html>

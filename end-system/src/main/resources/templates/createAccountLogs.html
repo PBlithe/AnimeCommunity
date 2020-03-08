@@ -45,7 +45,7 @@
                     [
                         { field: 'no', title: '序号', align: 'center', sort: true },
                         { field: 'id', title: '账号', align: 'center' },
-                        { field: 'time', title: '时间', align: 'center', sort: true,templet: "#time" },
+                        { field: 'time', title: '时间', align: 'center', sort: true,templet: "#mytime" },
                         { field: 'opt', title: '操作', align: 'center',templet:'#opt'},
                         { field: 'optor', title: '操作人', align: 'center' },
                         { field: 'supple', title: '补充说明', align: 'center' }
@@ -57,9 +57,11 @@
     });
 </script>
 
+<script type="text/javascript"  th:src="@{/authCheck.js}"></script>
+
 <script type="text/html" id="opt">
     {{#  if(d.opt == 'CREATE'){ }}
-    <span class="layui-btn layui-btn-warm layui-btn-sm">创建</span>
+    <span class="layui-btn layui-btn-sm">创建</span>
     {{#  } }}
     {{#  if(d.opt == 'MODIFY'){ }}
     <span class="layui-btn layui-btn-normal layui-btn-sm">修改</span>
@@ -67,11 +69,11 @@
     {{#  if(d.opt == 'DELETE'){ }}
     <span class="layui-btn layui-btn-danger layui-btn-sm">删除</span>
     {{#  } }}
-    {{#  if(d.opt == 'BLOCK '){ }}
-    <span class="layui-btn layui-btn-primary layui-btn-sm">封锁</span>
+    {{#  if(d.opt == 'BLOCK'){ }}
+    <span class="layui-btn layui-btn-warm layui-btn-sm">封锁</span>
     {{#  } }}
 </script>
-<script type="text/html" id="time">
+<script type="text/html" id="mytime">
     {{layui.util.toDateString(d.time)}}
 </script>
 <script>
