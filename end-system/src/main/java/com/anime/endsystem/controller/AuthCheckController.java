@@ -19,4 +19,14 @@ public class AuthCheckController {
         String id = (String) session.getAttribute("optor");
         return authCheckService.createAccountLogsAJAX(id);
     }
+    @GetMapping("/selectUserInfoAJAX")
+    public ResultBean selectUserInfoAJAX(HttpSession session){
+        String id = (String) session.getAttribute("optor");
+        return authCheckService.selectUserInfoAJAX(id);
+    }
+    @GetMapping("/manageUserAJAX")
+    public ResultBean manageUserAJAX(HttpSession session){
+        String id = (String) session.getAttribute("optor");
+        return authCheckService.manageUserAJAX(id);
+    }
 }

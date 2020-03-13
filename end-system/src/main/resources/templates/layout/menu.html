@@ -14,8 +14,8 @@
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/createAdminPage}" id="createAdmin">创建管理员</a></dd>
                         <dd><a href="#" th:href="@{/modifyAccountPage}" id="modifyAccount">修改账号</a></dd>
-                        <dd><a href="selectUserInfo.html">查询用户信息</a></dd>
-                        <dd><a href="javascript:;">处理违规账号<span class="layui-badge">5</span></a></dd>
+                        <dd><a href="#" id="selectUserInfo">查询用户信息</a></dd>
+                        <dd><a href="#" id="manageUser">处理违规账号<span class="layui-badge">5</span></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -46,7 +46,7 @@
                         <dd><a href="javascript:;">公告推送记录</a></dd>
                         <dd><a href="javascript:;">话题修改记录</a></dd>
                         <dd><a href="javascript:;">帖子修改记录</a></dd>
-                        <dd><a href="javascript:;">处理违规账号记录</a></dd>
+                        <dd><a href="#" id="userLogs">处理违规账号记录</a></dd>
                     </dl>
                 </li>
             </ul>

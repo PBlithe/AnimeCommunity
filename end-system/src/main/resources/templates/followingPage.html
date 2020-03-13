@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小宅子后端管理系统-关注</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js" th:src="@{/jquery-3.4.1.min.js}"></script>
+</head>
+<body>
+    <div style="margin: 0 auto;width: 500px;min-height: 800px;">
+        <div><span th:text="${uid}"></span><span>的关注：</span></div>
+        <table class="layui-table">
+            <colgroup>
+                <col align="center">
+                <col align="center">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>昵称</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="f,iterStat:${followings}">
+                    <td th:text="${f.uid}"></td>
+                    <td th:text="${f.nickname}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

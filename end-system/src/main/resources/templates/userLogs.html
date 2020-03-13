@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>小宅子后台管理系统</title>
+
+    <link rel="stylesheet" href="layui/css/layui.css" th:href="@{/layui/css/layui.css}">
+
+    <script type="text/javascript" src="layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="jquery-3.4.1.min.js" th:src="@{/jquery-3.4.1.min.js}"></script>
+</head>
+
+<body>
+    <div th:include="layout/menu::side"></div>
+
+    <div id="default">
+        <ul class="layui-nav layui-bg-gray">
+            <li class="layui-nav-item">
+                <a href="" style="color: black;">
+                    <span>日志</span>
+                    <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <span style="color: #01AAED;">处理违规账号记录</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <form class="layui-form" lay-filter="formTest">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">用户ID</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" placeholder="通过用户ID快速搜索" name="uid"/>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">时间</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" placeholder="通过时间范围快速搜索" id="time" name="time"/>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="userLogsSearch">搜索</button>
+                        <button type="button" class="layui-btn layui-btn-primary" id="myreset">重置</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table id="userLogsList">
+        </table>
+    </div>
+
+</body>
+<script type="text/javascript"  th:src="@{/authCheck.js}"></script>
+<script>
+    layui.use(['element', 'table','laydate','form'], function () {
+        var element = layui.element;
+        var table = layui.table;
+        var laydate = layui.laydate;
+        var form = layui.form;
+
+        laydate.render({
+            elem:'#time',
+            type:'datetime',
+            range:true,
+            theme:'#1E9FFF'
+        })
+
+        var tableIns = table.render({
+            elem: "#userLogsList",
+            url: "/userLogs",
+            cols: [[
+                { field: 'no', title: '序号', align: 'center', sort: true },
+                { field: 'uid', title: '用户ID', align: 'center',sort:true },
+                { field: 'time', title: '时间', align: 'center', sort: true,templet:'#mytime' },
+                { field: 'opt', title: '操作', align: 'center',templet:'#myopt'},
+                { field: 'optor', title: '操作人', align: 'center'}
+            ]
+            ],
+            page: true,
+            limit: 10
+        });
+        form.on('submit(userLogsSearch)',function (data) {
+            tableIns.reload({
+                where:{
+                    "uid":data.field.uid,
+                    "time":data.field.time,
+                },page:{
+                    curr:1
+                }
+            });
+            return false;
+        });
+        $('#myreset').on('click',function(){
+            tableIns.reload({
+                where:{
+                    "uid":"",
+                    "time":"",
+                },page:{
+                    curr:1
+                }
+            });
+            form.val('formTest',{
+                "uid":"",
+                "time":""
+            });
+        });
+    });
+</script>
+<script type="text/html" id="myopt">
+    {{# if( d.opt == 'BLOCK') { }}
+        <a class="layui-btn layui-btn-warm layui-btn-sm">封号</a>
+    {{# } else { }}
+        <a class="layui-btn layui-btn-normal layui-btn-sm">解除</a>
+    {{# }}}
+</script>
+<script type="text/html" id="mytime">
+    {{d.time.toLocaleString().replace(/T/g,' ').substr(0,19)}}
+</script>
+<script>
+    $(window).ready(function () {
+        var bodyWidth = $('body').width()
+        var sideWith = $('#side').width()
+        $("#default").css("margin-left", sideWith + "px");
+        $("#content").css({ "margin-top": "20px", "margin-left": sideWith + "px", "margin-right": 20 + "px" });
+        $("#logs").addClass("layui-nav-itemed");
+        $("#userLogs").addClass("layui-this");
+    });
+</script>
+
+</html>
